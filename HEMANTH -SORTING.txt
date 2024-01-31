@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.Random;
+
+public class Algos {
+
+    public static void main(String[] args) {
+        int f = 100000; // Number of arrays
+        int[][] arr = new int[f][];
+        Random rand = new Random();
+
+        for (int i = 1; i < f; i=i+i) {
+            arr[i] = new int[i + 1]; 
+            for (int j = 0; j < i + 1; j++) {
+                arr[i][j] = rand.nextInt(); 
+            }
+            sortAlgos(arr[i]);
+        }
+    }
+
+    public static void sortAlgos(int[] array) {
+        System.out.println("Array Size: "+ array.length + "\tselectionSort: "+ selectionSort(array.clone())+ "\t| insertionSort: "+ selectionSort(array.clone())+ "\t| bubbleSort: "+ bubbleSort(array.clone()));
+    }
+
+    
+    public static long insertionSort(int[] array) {
+        long st = System.nanoTime();
+        for (int i = 1; i < array.length; i++) {
+            int j = i - 1;
+            int a = array[i];
+            while (j >= 0 && array[j] > a) {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = a;
+        }
+        long et = System.nanoTime();
+        return et-st;
+    }
+
+    public static long selectionSort(int[] array) {
+        long st = System.nanoTime();
+        for (int i = 0; i < array.length - 1; i++) {
+            
+            int temp = array[i];
+            int tempIndex = i;
+            for(int j=i+1;j<array.length;j++)
+            {
+                if(array[j]<temp)
+                {
+                    temp = array[j];
+                    tempIndex = j;
+                }
+            }
+            array[tempIndex] = array[i];
+            array[i] = temp;
+            
+        }
+        long et = System.nanoTime();
+        return et-st;
+    }
+
+    public static long bubbleSort(int[] array) {
+        long st = System.nanoTime();
+        for (int f = 0; f < array.length; f++) {
+            for (int i = 0; i < array.length - f - 1; i++) {
+                int firstEle = i;
+                int secondEle = i + 1;
+                if (array[firstEle] > array[secondEle]) {
+                    int temp = array[firstEle];
+                    array[firstEle] = array[secondEle];
+                    array[secondEle] = temp;
+                }
+            }
+        }
+        long et = System.nanoTime();
+        return et-st;
+    }
+
+}
